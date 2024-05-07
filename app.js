@@ -7,6 +7,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var goalsRouter = require('./routes/goals');
+var tasksRouter = require('./routes/tasks');
+// Router
 const router = express.Router();
 
 var app = express();
@@ -15,7 +17,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use('/',router)
+app.use('/',router);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -24,16 +26,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 router.use((req, res, next)=>{
 
-  if(req.headers.authorization && req.headers.authorization === 'cursodedessarolllodeaplicacionesweb' ){
+  if(req.headers.authorization && req.headers.authorization === 'myAuthorizationHeader' ){
     next();
   }else{
-    res.json({'error': 'No se estan enviando las credenciales!'});
+    res.json({'error': 'API Key no es Valido!'});
   }
 })
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/goals', goalsRouter);
+app.use('/tasks', tasksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
