@@ -10,26 +10,28 @@ var goalsRouter = require('./routes/goals');
 var tasksRouter = require('./routes/tasks');
 // Router
 const router = express.Router();
-
+// CORS
+var cors = require("cors");
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-app.use('/',router);
+// Instanciando CORS
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/',router);
 
+// Middleware de autorizacion
 router.use((req, res, next)=>{
-
-  if(req.headers.authorization && req.headers.authorization === 'myAuthorizationHeader' ){
+  if(req.headers.authorization && req.headers.authorization === '12345'){
     next();
-  }else{
-    res.json({'error': 'API Key no es Valido!'});
+  } else {
+    res.status(401).json({'error': 'API Key no es Valido!'});
   }
 })
 
