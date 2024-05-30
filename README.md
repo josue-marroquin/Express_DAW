@@ -1,3 +1,10 @@
+# Cambios Realizados - 29/5/24
+Actividad 5
+- Instalado Mongoose y agregado las dependencias
+- Agregar conexion a MongoDB
+- Agregar persistencia de datos en todos los endpoints.
+
+
 # Cambios Realizados - 13/5/24
 
 Cambios solicitados para Actividad 4
